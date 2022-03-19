@@ -3,7 +3,7 @@ import Generator from './Components/Generator';
 function App() {
 	return (
 		<div>
-			<h1>Sudoku brother!🧠</h1>
+			<h1>Sudoku!🧠</h1>
 			<Generator />
 		</div>
 	);
