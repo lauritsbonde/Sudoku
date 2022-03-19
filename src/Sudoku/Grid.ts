@@ -45,22 +45,38 @@ class Grid {
 	}
 
 	instantFill() {
-		const currentPos = { row: 0, col: 0 };
-		while (!this.finished) {
-			if (this.setValue(currentPos) === 0) {
+		let currentPos = { row: 0, col: 0 };
+		let direction = 'forward';
+		while (currentPos.row < 9) {
+			if (this.grid[currentPos.row][currentPos.col].manuallySet) {
+				if (direction === 'forward') {
+					currentPos.col++;
+					if (currentPos.col === 9) {
+						currentPos.col = 0;
+						currentPos.row++;
+					}
+				} else {
+					currentPos.col--;
+					if (currentPos.col === -1) {
+						currentPos.col = 8;
+						currentPos.row--;
+					}
+				}
+			} else if (this.setValue(currentPos) === 0) {
 				this.backtrack(currentPos);
 				currentPos.col--;
-
 				if (currentPos.col < 0) {
 					currentPos.row--;
 					currentPos.col = 8;
 				}
+				direction = 'backward';
 			} else {
 				currentPos.col++;
 				if (currentPos.col > 8) {
 					currentPos.row++;
 					currentPos.col = 0;
 				}
+				direction = 'forward';
 			}
 		}
 	}
